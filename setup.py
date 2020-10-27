@@ -19,7 +19,8 @@ setuptools.setup(
         license="GPLv3",
         install_requires=[
             "matplotlib==3.3.2",
-            "numpy==1.19.1"
+            "numpy==1.19.1",
+            "iteround==1.0.2"
         ],
         packages=setuptools.find_packages(),
         include_package_data=True,
