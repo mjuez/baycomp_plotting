@@ -34,7 +34,6 @@ def project(pts):
 
     return np.vstack((x, y)).T
 
-
 def tern(p):
     plt.style.use('classic')
 
