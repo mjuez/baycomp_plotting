@@ -5,17 +5,20 @@ Functions for plotting baycomp's posterior plots.
     A ternary plot.
 """
 
+import types
 import numpy as np
+import matplotlib.patches as patches
+import matplotlib.colors as clrs
 from matplotlib import pyplot as plt
 from matplotlib.lines import Line2D
 from matplotlib.path import Path
-import matplotlib.patches as patches
 from matplotlib.colors import ListedColormap
 from math import sqrt, sin, cos, pi
 from iteround import saferound
 from scipy.interpolate import interpn
+from scipy import stats
 
-__all__ = ['tern']
+__all__ = ['Color', 'tern', 'dens']
 
 # Custom colormap -> dark blue means high density, and light blue low
 BLUES_CMAP = np.ones((256, 4))
@@ -23,6 +26,13 @@ BLUES_CMAP[:, 0] = np.linspace(199/256, 8/256, 256)
 BLUES_CMAP[:, 1] = np.linspace(224/256, 64/256, 256)
 BLUES_CMAP[:, 2] = np.linspace(252/256, 129/256, 256)
 BLUES_CMAP = ListedColormap(BLUES_CMAP)
+
+# Custom colors
+class Color():
+    BLUE = clrs.to_hex((0/255, 142/255, 206/255))
+    GRAY = clrs.to_hex((77/255, 80/255, 94/255))
+    BORDEAUX = clrs.to_hex((208/255, 33/255, 85/255))
+    GREEN = clrs.to_hex((5/255, 126/255, 121/255))
 
 def project(pts):
     SQRT_3 = sqrt(3)
@@ -79,4 +89,52 @@ def tern(p):
             s=50, edgecolor='', cmap=BLUES_CMAP, rasterized=True)
 
     fig.tight_layout()
+    return fig
+
+def dens(p, label, ls='-', color=Color.BLUE):
+    def add_posterior(ax, p, label, ls, color):
+        def _update_yticks():
+            tick = ax.max_y / 3
+            yticks = [0, tick*1, tick*2, tick*3]
+            ax.set_ylim(0, ax.max_y)
+            ax.set_yticks(yticks)
+            ax.set_yticklabels([r'$%.3f$'%round(x, 3) for x in yticks])
+
+        targs = (p.df, p.mean, np.sqrt(p.var))
+        x = np.linspace(min(stats.t.ppf(.005, *targs), -1.05 * p.rope),
+                max(stats.t.ppf(.995, *targs), 1.05 * p.rope), 100)
+        y = stats.t.pdf(x, *targs)
+        ax.plot(x, y, c=color, linestyle=ls, linewidth=1, label=label, 
+                zorder=ax.zo)
+        ax.fill_between(x, y, facecolor=color, alpha=.1, edgecolor='none', 
+                zorder=ax.zo) 
+        ax.zo = ax.zo - 1
+
+        if(ax.max_y == None):
+            ax.max_y = np.amax(y) + np.amax(y)*.02
+            _update_yticks()
+        else:
+            curr_max_y = np.amax(y) + np.amax(y)*.02
+            if(curr_max_y > ax.max_y):
+                ax.max_y = curr_max_y
+                _update_yticks()
+
+    plt.style.use('classic')
+
+    fig, ax = plt.subplots(figsize=(5,3))
+    fig.patch.set_alpha(0)
+    ax.axvline(.01, c='darkorange', linewidth=1, zorder=101)
+    ax.axvline(-.01, c='darkorange', linewidth=1, zorder=101)
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
+    ax.spines['bottom'].set_visible(False)
+    ax.yaxis.set_ticks_position('left')
+    ax.xaxis.set_ticks_position('none')
+    ax.tick_params(axis='both', which='major', labelsize=15, direction='inout',
+            width=1, length=5)
+    ax.set_xticks([])
+    ax.max_y = None
+    ax.zo = 100
+    add_posterior(ax, p, label, ls, color)
+    fig.add_posterior = types.MethodType(add_posterior, ax)
     return fig
