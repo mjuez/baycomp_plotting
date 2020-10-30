@@ -3,6 +3,11 @@ Functions for plotting baycomp's posterior plots.
 
 ``tern``
     A ternary plot.
+
+``dens``
+    A density plot.
+
+Author: Mario Juez-Gil <mariojg@ubu.es>
 """
 
 import types
