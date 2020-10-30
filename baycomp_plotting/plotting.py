@@ -121,6 +121,7 @@ def dens(p, label, ls='-', color=Color.BLUE):
 
     plt.style.use('classic')
 
+    # figure customization
     fig, ax = plt.subplots(figsize=(5,3))
     fig.patch.set_alpha(0)
     ax.axvline(.01, c='darkorange', linewidth=1, zorder=101)
@@ -133,8 +134,12 @@ def dens(p, label, ls='-', color=Color.BLUE):
     ax.tick_params(axis='both', which='major', labelsize=15, direction='inout',
             width=1, length=5)
     ax.set_xticks([])
+    
+    # appending the posterior to the axes
     ax.max_y = None
     ax.zo = 100
     add_posterior(ax, p, label, ls, color)
     fig.add_posterior = types.MethodType(add_posterior, ax)
+    
+    fig.tight_layout()
     return fig
