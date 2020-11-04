@@ -109,6 +109,7 @@ def dens(p, label, ls='-', color=Color.BLUE):
         x = np.linspace(min(stats.t.ppf(.005, *targs), -1.05 * p.rope),
                 max(stats.t.ppf(.995, *targs), 1.05 * p.rope), 100)
         y = stats.t.pdf(x, *targs)
+        y = y / y.sum() # density
         ax.plot(x, y, c=color, linestyle=ls, linewidth=1, label=label, 
                 zorder=ax.zo)
         ax.fill_between(x, y, facecolor=color, alpha=.1, edgecolor='none', 
