@@ -15,7 +15,7 @@ setuptools.setup(
         author='Mario Juez-Gil',
         author_email='mariojg@ubu.es',
         url='https://github.com/mjuez/baycomp_plotting',
-        download_url='https://github.com/mjuez/baycomp_plotting/archive/v0_5a.tar.gz',
+        download_url='https://github.com/mjuez/baycomp_plotting/archive/v1_0.tar.gz',
         license='GPLv3',
         install_requires=[
             'matplotlib==3.3.2',
