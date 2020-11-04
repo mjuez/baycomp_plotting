@@ -91,7 +91,7 @@ def tern(p):
             bounds_error=False)
     idx = z.argsort()
     ax.scatter(tripts[:, 0][idx], tripts[:, 1][idx], c=z[idx], clip_path=patch,
-            s=50, edgecolor='', cmap=BLUES_CMAP, rasterized=True)
+            s=50, linewidth=0, cmap=BLUES_CMAP, rasterized=True)
 
     fig.tight_layout()
     return fig
