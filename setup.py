@@ -8,7 +8,7 @@ with open('LICENSE') as f:
 
 setuptools.setup(
         name='baycomp_plotting',
-        version='0.5',
+        version='1.0',
         description='This package provides some extra functionality for plotting baycomp\'s posteriors.',
         long_description=readme,
         long_description_content_type='text/markdown',
@@ -26,7 +26,7 @@ setuptools.setup(
         packages=setuptools.find_packages(),
         include_package_data=True,
         classifiers=[
-            'Development Status :: 3 - Alpha',
+            'Development Status :: 5 - Production/Stable',
             'Intended Audience :: Science/Research',
             'Topic :: Scientific/Engineering',
             'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
