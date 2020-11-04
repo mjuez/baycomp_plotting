@@ -110,8 +110,8 @@ def dens(p, label, ls='-', color=Color.BLUE):
                 max(stats.t.ppf(.995, *targs), 1.05 * p.rope), 100)
         y = stats.t.pdf(x, *targs)
         y = y / y.sum() # density
-        ax.plot(x, y, c=color, linestyle=ls, linewidth=1, label=label, 
-                zorder=ax.zo)
+        ax.plot(x, y, c=color, linestyle=ls, linewidth=2, 
+                label=r'$\mathrm{%s}$'%label, zorder=ax.zo)
         ax.fill_between(x, y, facecolor=color, alpha=.1, edgecolor='none', 
                 zorder=ax.zo) 
         ax.zo = ax.zo - 1
@@ -126,18 +126,19 @@ def dens(p, label, ls='-', color=Color.BLUE):
                 _update_yticks()
 
     plt.style.use('classic')
+    plt.rc('legend', fontsize=25)
 
     # figure customization
-    fig, ax = plt.subplots(figsize=(5,3))
+    fig, ax = plt.subplots()
     fig.patch.set_alpha(0)
-    ax.axvline(.01, c='darkorange', linewidth=1, zorder=101)
-    ax.axvline(-.01, c='darkorange', linewidth=1, zorder=101)
+    ax.axvline(.01, c='darkorange', linewidth=2, zorder=101)
+    ax.axvline(-.01, c='darkorange', linewidth=2, zorder=101)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
     ax.spines['bottom'].set_visible(False)
     ax.yaxis.set_ticks_position('left')
     ax.xaxis.set_ticks_position('none')
-    ax.tick_params(axis='both', which='major', labelsize=15, direction='inout',
+    ax.tick_params(axis='both', which='major', labelsize=30, direction='inout',
             width=1, length=5)
     ax.set_xticks([])
     
