@@ -66,7 +66,7 @@ _Example:_
 import baycomp_plotting as bplt
 import baycomp as bc
 
-posterior = bc.CorrelatedTTest(left_classifier_acc, right_classifier_acc)
+posterior = bc.CorrelatedTTest(left_classifier_acc, right_classifier_acc, rope=0.01)
 fig = bplt.dens(posterior, label='C1', ls='-', color=bplt.Color.BLUE)
 ```
 
