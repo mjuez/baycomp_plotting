@@ -82,8 +82,8 @@ _Example:_
 import baycomp_plotting as bplt
 import baycomp as bc
 
-posterior = bc.CorrelatedTTest(left_classifier_1_acc, right_classifier_acc)
-posterior_1 = bc.CorrelatedTTest(left_classifier_2_acc, right_classifier_acc)
+posterior = bc.CorrelatedTTest(left_classifier_1_acc, right_classifier_acc, rope=0.01)
+posterior_1 = bc.CorrelatedTTest(left_classifier_2_acc, right_classifier_acc, rope=0.01)
 fig = bplt.dens(posterior, label='C1', ls='-', color=bplt.Color.BLUE)
 fig.add_posterior(posterior_1, label='C2', ls=(0,(5,1)), color=bplt.Color.GRAY)
 fig.legend() # you can show the legend
@@ -103,7 +103,7 @@ _Example:_
 import baycomp_plotting as bplt
 import baycomp as bc
 
-posterior = bc.HierarchicalTest(left_classifier_acc, right_classifier_acc)
+posterior = bc.HierarchicalTest(left_classifier_acc, right_classifier_acc, rope=0.01)
 fig = bplt.tern(posterior)
 ```
 
