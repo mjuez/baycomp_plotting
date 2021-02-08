@@ -8,14 +8,14 @@ with open('LICENSE') as f:
 
 setuptools.setup(
         name='baycomp_plotting',
-        version='1.0',
+        version='1.1',
         description='This package provides some extra functionality for plotting baycomp\'s posteriors.',
         long_description=readme,
         long_description_content_type='text/markdown',
         author='Mario Juez-Gil',
         author_email='mariojg@ubu.es',
         url='https://github.com/mjuez/baycomp_plotting',
-        download_url='https://github.com/mjuez/baycomp_plotting/archive/v1_0.tar.gz',
+        download_url='https://github.com/mjuez/baycomp_plotting/archive/v1_1.tar.gz',
         license='GPLv3',
         install_requires=[
             'matplotlib==3.3.2',
