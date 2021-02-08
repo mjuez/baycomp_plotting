@@ -49,7 +49,14 @@ def project(pts):
 
     return np.vstack((x, y)).T
 
-def tern(p):
+def process_names(names):
+    for i in range(len(names)):
+        names[i] = names[i].replace("-", "{-}")
+        names[i] = names[i].replace(" ", "\\ ")
+    return names
+
+def tern(p, names=["L", "R"]):
+    names = process_names(names)
     plt.style.use('classic')
 
     fig, ax = plt.subplots()
@@ -74,13 +81,13 @@ def tern(p):
     # vertices texts
     probs = saferound(list(p.probs()), places=4)
     # L
-    ax.text(-.04, -.02, r'$\mathrm{L}$', ha='center', va='top', fontsize=30)
+    ax.text(-.04, -.02, r'$\mathrm{%s}$'%names[0], ha='center', va='top', fontsize=30)
     ax.text(-.04, -.12, r'$\mathbf{(%.4f)}$'%probs[0], ha='center', va='top', fontsize=32)
     # ROPE
     ax.text(.5, 1, r'$\mathrm{ROPE}$', ha='center', va='bottom', fontsize=30)
     ax.text(.5, .87, r'$\mathbf{(%.4f)}$'%probs[1], ha='center', va='bottom', fontsize=32)
     # R
-    ax.text(1.04, -.02, r'$\mathrm{R}$', ha='center', va='top', fontsize=30)
+    ax.text(1.04, -.02, r'$\mathrm{%s}$'%names[1], ha='center', va='top', fontsize=30)
     ax.text(1.04, -.12, r'$\mathbf{(%.4f)}$'%probs[2], ha='center', va='top', fontsize=32)
 
     # draw points
