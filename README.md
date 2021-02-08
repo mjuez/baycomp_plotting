@@ -95,7 +95,10 @@ _Output:_
 
 ### Ternary plots
 
-For plotting the comparison of two classifiers on multiple datasets using a ternary plot, `tern` function could be used. It only receives the posterior as parameter.
+For plotting the comparison of two classifiers on multiple datasets using a ternary plot, `tern` function could be used. It's parameters are the following:
+
+- `p`: baycomp posterior.
+- `names`: an array containing Left and Right region labels. [default: `["L", "R"]`]
 
 _Example:_
 
