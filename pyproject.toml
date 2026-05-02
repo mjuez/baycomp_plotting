@@ -1,0 +1,73 @@
+[build-system]
+requires = ["hatchling>=1.24"]
+build-backend = "hatchling.build"
+
+[project]
+name = "baycomp_plotting"
+version = "1.2.0"
+description = "Extra plotting functionality for baycomp's Bayesian classifier comparison posteriors."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
+authors = [
+    { name = "Mario Juez-Gil", email = "mariojg@ubu.es" },
+]
+keywords = [
+    "bayesian",
+    "classifier-comparison",
+    "machine-learning",
+    "plotting",
+    "baycomp",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Scientific/Engineering :: Visualization",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "matplotlib>=3.5",
+    "numpy>=1.21",
+    "scipy>=1.7",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7",
+    "pytest-mpl>=0.17",
+    "baycomp>=1.0.3",
+]
+
+[project.urls]
+Homepage = "https://github.com/mjuez/baycomp_plotting"
+Repository = "https://github.com/mjuez/baycomp_plotting"
+Issues = "https://github.com/mjuez/baycomp_plotting/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/baycomp_plotting"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "src",
+    "tests",
+    "README.md",
+    "LICENSE",
+    "pyproject.toml",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+filterwarnings = [
+    "error::DeprecationWarning",
+    "error::FutureWarning",
+    # Emitted by matplotlib's internal use of pyparsing; third-party.
+    "ignore::pyparsing.warnings.PyparsingDeprecationWarning",
+]
