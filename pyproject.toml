@@ -65,3 +65,9 @@ include = [
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+filterwarnings = [
+    "error::DeprecationWarning",
+    "error::FutureWarning",
+    # Emitted by matplotlib's internal use of pyparsing; third-party.
+    "ignore::pyparsing.warnings.PyparsingDeprecationWarning",
+]
