@@ -90,6 +90,12 @@ def _add_posterior(ax, p, label: str, ls="-", color: str = Color.BLUE) -> None:
     upper bound) and ``zo`` (z-order counter, decremented for each posterior so
     earlier ones stay on top).
     """
+    if not (p.var > 0):
+        raise ValueError(
+            f"Cannot draw density: posterior variance is {p.var!r}. "
+            "The two classifiers likely produced identical scores; "
+            "the posterior is degenerate and has no density to plot."
+        )
     targs = (p.df, p.mean, np.sqrt(p.var))
     x = np.linspace(
         min(stats.t.ppf(0.005, *targs), -1.05 * p.rope),
@@ -205,8 +211,8 @@ def dens(p, label: str, ls="-", color: str = Color.BLUE):
 
     fig, ax = plt.subplots()
     fig.patch.set_alpha(0)
-    ax.axvline(0.01, c="darkorange", linewidth=2, zorder=101)
-    ax.axvline(-0.01, c="darkorange", linewidth=2, zorder=101)
+    ax.axvline(p.rope, c="darkorange", linewidth=2, zorder=101)
+    ax.axvline(-p.rope, c="darkorange", linewidth=2, zorder=101)
     ax.spines["right"].set_visible(False)
     ax.spines["top"].set_visible(False)
     ax.spines["bottom"].set_visible(False)
